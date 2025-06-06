@@ -22,13 +22,13 @@ export class ProductController {
 
     @Post()
     @Roles("admin")
-    async createProduct(@Body() body: {name: string, price: number, description: string, sizes: string, colors: string}) {
+    async createProduct(@Body() body: {name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[]}) {
         return this.productService.createProduct(body);
     }
 
     @Put()
     @Roles("admin")
-    async editProduct(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string}) {
+    async editProduct(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[]}) {
         return this.productService.editProduct(body);
     }
 
