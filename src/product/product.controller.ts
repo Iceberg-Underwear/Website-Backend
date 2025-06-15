@@ -6,7 +6,6 @@ import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { ProductService } from './product.service';
 
 @Controller('product')
-@UseGuards(RolesGuard)
 export class ProductController {
     constructor(private productService: ProductService) {}
 
@@ -20,20 +19,23 @@ export class ProductController {
         return this.productService.getProductById(productId);
     }
 
-    @Post()
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles("admin")
+    @Post()
     async createProduct(@Body() body: {name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[]}) {
         return this.productService.createProduct(body);
     }
 
-    @Put()
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles("admin")
+    @Put()
     async editProduct(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[]}) {
         return this.productService.editProduct(body);
     }
 
-    @Delete(":productId")
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles("admin")
+    @Delete(":productId")
     async deleteProduct(@Param("productId") productId: string) {
         return this.productService.deleteProduct(productId);
     }
