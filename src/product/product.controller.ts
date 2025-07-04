@@ -22,14 +22,14 @@ export class ProductController {
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles("admin")
     @Post()
-    async createProduct(@Body() body: {name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[]}) {
+    async createProduct(@Body() body: {name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[], tags: string}) {
         return this.productService.createProduct(body);
     }
 
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles("admin")
     @Put()
-    async editProduct(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[]}) {
+    async editProduct(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[], tags: string}) {
         return this.productService.editProduct(body);
     }
 
