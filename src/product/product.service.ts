@@ -16,6 +16,17 @@ interface ProductUpdateInput extends ProductInput {
   id: string;
 }
 
+interface ProductNoImage {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  sizes: string;
+  colors: string;
+  tags: string;
+  amount: number;
+}
+
 
 @Injectable()
 export class ProductService {
@@ -44,7 +55,7 @@ export class ProductService {
     });
   }
 
-  async editProduct(product: ProductUpdateInput) {
+  async editProductImages(product: ProductUpdateInput) {
     // remove existing images
     await this.prisma.productImage.deleteMany({
       where: { productId: product.id },
@@ -66,6 +77,25 @@ export class ProductService {
             altText: image.altText,
           })) || [],
         },
+        tags: product.tags,
+        amount: product.amount
+      },
+      include: { images: true },
+    });
+  }
+
+  async editProduct(product: ProductNoImage) {
+
+    return this.prisma.product.update({
+      where: {
+        id: product.id,
+      },
+      data: {
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        sizes: product.sizes,
+        colors: product.colors,
         tags: product.tags,
         amount: product.amount
       },

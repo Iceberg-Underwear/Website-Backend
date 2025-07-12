@@ -28,8 +28,15 @@ export class ProductController {
 
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles("admin")
+    @Put("/images")
+    async editProductImages(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[], tags: string, amount: number}) {
+        return this.productService.editProductImages(body);
+    }
+
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles("admin")
     @Put()
-    async editProduct(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string, images: { url: string; altText: string }[], tags: string, amount: number}) {
+    async editProduct(@Body() body: {id: string, name: string, price: number, description: string, sizes: string, colors: string, tags: string, amount: number}) {
         return this.productService.editProduct(body);
     }
 
