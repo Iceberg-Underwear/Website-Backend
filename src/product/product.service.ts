@@ -9,6 +9,7 @@ interface ProductInput {
   colors: string;
   images?: { url: string; altText: string }[];
   tags: string;
+  amount: number;
 }
 
 interface ProductUpdateInput extends ProductInput {
@@ -37,6 +38,7 @@ export class ProductService {
             }
           : undefined,
         tags: product.tags,
+        amount: product.amount
       },
       include: { images: true },
     });
@@ -64,7 +66,8 @@ export class ProductService {
             altText: image.altText,
           })) || [],
         },
-        tags: product.tags
+        tags: product.tags,
+        amount: product.amount
       },
       include: { images: true },
     });

@@ -35,6 +35,7 @@ model Product {
   orders      OrdersOnProducts[]
   images      ProductImage[]
   tags        String?
+  amount      Int       @default(0)
 }
 
 model ProductImage {
